@@ -8,7 +8,7 @@ def my_bench(exec_stmt, setup, rpt=3, num=3):
 if __name__ == '__main__':
     print('Testing methods of origin, multithread and multiprocess')
     print('Minimum time average of 3 in 3 repeats')
-    print('Orig:', my_bench(
+    print('Straight:', my_bench(
         'orig_way()', 'from validate_prime import orig_way'))
     print('Multithread:', my_bench(
         'use_thread()', 'from demo_multithread import use_thread'))

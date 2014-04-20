@@ -37,6 +37,9 @@
             margin: 0 0 20px;
         }
 
+        pre.full-page {
+            margin: -60px 0 0;
+        }
         /* inline */
         p.inline {
             margin-bottom: 0px;
@@ -197,6 +200,142 @@
             <li>Summary</li>
         </ul>
     </div></section>
+
+    <section id="note-before-talk" class="slide"><div>
+        <h2>Few notes before my talk</h2>
+        <ul>
+            <li>If not mentioned, tasks to be distributed(parallelized) are CPU-heavy</li>
+            <li>Everyone switches to Python 3.x after this talk (hopefully)</li>
+        </ul>
+    </div></section>
+    <section id="val-prime" class="slide"><div>
+        <h2 class="tighter">Example: Validate Prime Numbers</h2>
+        <pre class="language-python3">
+<code>PRIMES = [int(l) for l in open('prime_list.txt')]
+def is_prime(n):
+    if n % 2 == 0:
+        return False
+    sqrt_n = int(math.floor(math.sqrt(n)))
+    for i in range(3, sqrt_n + 1, 2):
+        if n % i == 0:
+            return False
+    return True</code></pre>
+    </div></section>
+
+    <section id="orig-way" class="slide"><div>
+        <h2 class="tighter">Straightforward way</h2>
+        <p class="tighter">Validate them one-by-one and benchmark by <code>timeit</code></p>
+        <pre class="language-python3">
+<code>def orig_way():
+    ans = [is_prime(prime) for prime in PRIMES]
+    return ans
+
+from timeit import timeit
+timeit('orig_way()', 'from __main__ import orig_way',
+       number=3)  # return total time of all runs</code></pre>
+    </div></section>
+
+    <section id="thread-process-in-python" class="slide"><div>
+        <h2 class="tighter">Threads and Process in Python</h2>
+        <p class="tighter">Multithread, <code>threading</code>, does not work as expected because of GIL.</p> 
+        <p class="tighter" align="right">
+            <img src="pics/David%20Beazley_gil_explain.png" width="100%" alt="">
+            (From David Beazley's <a href="http://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank"><i>Understanding GIL</i></a>)
+        </p>
+    </div></section>
+
+    <section id="demo-multiprocessing" class="slide"><div>
+        <h2 class="tighter">Multiprocess easy and elegant in Python</h2>
+        <pre class="language-python3 tighter">
+<code>>>> from validate_prime import is_prime, PRIMES
+>>> from multiprocessing import Pool
+>>> p = Pool(2) # max concurrent processes
+>>> p.map(is_prime, PRIMES[:4])
+[True, True, True, True]</code></pre>
+<pre class="language-python3 tighter next">
+<code>>>> # Ctrl-C / Ctrl-Z
+Traceback x N ... endless
+<mark class="important">BOOOOOOOOM!!</mark> # NEVER run this interactively</code></pre>
+    </div></section>
+
+    <section id="concurrent-multiprocess" class="slide"><div>
+        <h2 class="tighter">Use concurrent.future (Py 3.2+)</h2>
+        <p class="tighter">
+            Still not safe in interactive mode. Provide some async APIs, which immediately returns a Future object.</p>
+<pre class="language-python3 tighter">
+<code>from concurrent.futures import ProcessPoolExecutor
+def use_process():
+    with ProcessPoolExecutor(4) as executor:
+        ans = executor.map(is_prime, PRIMES)
+        return ans
+use_process()  # block at here</code></pre>
+    </div></section>
+
+    <section id="demo-async" class="slide"><div>
+        <pre class="language-python3 full-page">
+<code>executor = ProcessPoolExecutor()  # not to block
+# every submit returns a future, nonblocking
+future_ans = [executor.submit(is_prime, p)
+              for p in PRIMES[:6]]
+
+while not all(fu.done() for fu in future_ans):
+    print('do sth else, waiting')
+    sleep(1)
+
+# get result from done futures
+print([f.result() for f in future_ans])</code></pre>
+    </div></section>
+
+    <section id="demo-async-result" class="slide"><div>
+        <pre class="language-bash tighter">
+<code>$ python3 demo_async.py
+do sth else, waiting
+do sth else, waiting
+do sth else, waiting
+do sth else, waiting
+[True, True, True, True, True, False]</code></pre>
+        <p class="next">(Beyonds today's topic) <br/>More on the asyncio module in Py 3.4, which makes you <i>escape the callback hell</i> through coroutine(generator) pattern <span class="next">... like magic.</span></p>
+    </div></section>
+
+    <section id="concurrent-multithread" class="slide"><div>
+        <p class="tighter">Concurrent.future also supports thread pooling</p>
+        <pre class="language-bash tighter">
+<code># replace ProcessPoolExecutor with ThreadPoolExecutor
+def use_thread():
+    with ThreadPoolExecutor(4) as executor:
+        ans = executor.map(is_prime, PRIMES)
+        return ans</code>
+        </pre>
+    </div></section>
+
+    <section id="builtin-democode" class="slide"><div>
+        <h2>Demo codes</h2>    
+        <p class="tighter">So far, many ways to validate prime using standard library:</p>
+        <ul>
+            <li>Straightforward: validate_prime.py</li>
+            <li>Multiprocess: demo_multiprocess.py</li>
+            <li>Multithread: demo_multithread.py</li>
+            <li>Async multiprocess: demo_async.py</li>
+        </ul>
+        <p class="tighter">All demo codes under <code>/demo_code/builtin-cpuheavy</code></p>
+    </div></section>
+
+    <section id="builtin-benchmark" class="slide"><div>
+        <h2>Benchmark on a 12 core machince</h2>    
+        <pre class="language-bash tighter">
+<code>> python3 benchmark.py
+# Minimum time average of 3 in 3 repeats
+Straight: 42.10
+Multithread: 39.47
+Multiprocess: 7.98</code>
+        </pre>
+        <p>You don't get a 12x speed up because of forking process overhead</p>
+    </div></section>
+
+
+    <section id="e" class="slide"><div>
+    </div></section>
+
 
     <!-- End Slide -->
     <section id='end' class='slide cover shout w'><div>

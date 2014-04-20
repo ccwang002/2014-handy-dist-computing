@@ -19,7 +19,8 @@ def better_is_prime(n):
             return False
         else:
             f += 6
-            return True
+
+    return True
 
 def better_process():
     with ProcessPoolExecutor() as executor:
@@ -31,6 +32,6 @@ if __name__ == '__main__':
     print('Time Avg:', min(repeat(
         'use_process()',
         setup='from demo_multiprocess import use_process', number=3)) / 3)
-    print('Better Time Avg:', min(repeat(
+    print('Better Alg Time Avg:', min(repeat(
         'better_process()',
         setup='from __main__ import better_process', number=3)) / 3)

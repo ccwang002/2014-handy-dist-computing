@@ -10,7 +10,7 @@ def my_bench(exec_stmt, setup, rpt=3, num=3):
          number=num, repeat=rpt)) / num
 
 if __name__ == '__main__':
-    print('Testing Orig / Multi Thread or Process')
+    print('Testing methods of origin, multithread and multiprocess')
     print('Minimum time average of 3 in 3 repeats')
     print('Orig:', my_bench(
         'orig_way()', 'from __main__ import orig_way'))

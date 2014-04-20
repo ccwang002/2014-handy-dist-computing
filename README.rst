@@ -22,8 +22,11 @@ Their origin licenses are at ``slides/lib/shower/License.md`` and ``slides/lib/h
 除另外標示，本
 
 - 投影片內容（ ``slides`` 目錄下）係使用創用 CC 姓名標示 4.0 國際（CC4.0 BY International）授權條款授權
-- 程式碼係使用 MIT 授權。授權條款可以分別參見 ``LICENSE_CC`` 以及 ``LICENSE_MIT`` 。
+- 程式碼係使用 MIT 授權。
+
+授權條款可以分別參見檔案 ``LICENSE_CC`` 、 |CC-LINK|_ 以及 ``LICENSE_MIT`` 。
 
 .. _shower.js: https://github.com/shower/shower
 .. _highlight.js: http://highlightjs.org/
-.. _LICENSE-LINK: http://creativecommons.org/licenses/by/4.0/deed.zh_TW
+.. |CC-LINK| replace:: CC 4.0 使用條款
+.. _CC-LINK: http://creativecommons.org/licenses/by/4.0/deed.zh_TW

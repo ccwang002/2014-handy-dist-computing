@@ -1,8 +1,11 @@
 from concurrent.futures import ThreadPoolExecutor
+from multiprocessing import cpu_count
 from validate_prime import is_prime, PRIMES
 
+CPU_NUM = cpu_count() or 4
+
 def use_thread():
-    with ThreadPoolExecutor() as executor:
+    with ThreadPoolExecutor(max_workers=CPU_NUM) as executor:
         ans = executor.map(is_prime, PRIMES)
         return ans
 

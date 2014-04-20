@@ -3,9 +3,8 @@ from validate_prime import is_prime, PRIMES
 
 def use_process():
     with ProcessPoolExecutor(max_workers=4) as executor:
-        for number, prime in zip(PRIMES, executor.map(is_prime, PRIMES)):
-            # print('%d is prime: %s' % (number, prime))
-            pass
+        ans = executor.map(is_prime, PRIMES)
+        return ans
 
 if __name__ == '__main__':
     from timeit import repeat

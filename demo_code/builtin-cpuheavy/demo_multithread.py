@@ -3,12 +3,11 @@ from validate_prime import is_prime, PRIMES
 
 def use_thread():
     with ThreadPoolExecutor(max_workers=4) as executor:
-        for number, prime in zip(PRIMES, executor.map(is_prime, PRIMES)):
-            # print('%d is prime: %s' % (number, prime))
-            pass
+        ans = executor.map(is_prime, PRIMES)
+        return ans
 
 if __name__ == '__main__':
-    from timeit import timeit
+    from timeit import repeat
     print('Time Avg:', min(repeat(
         'use_thread()',
         setup='from __main__ import use_thread', number=3)) / 3)

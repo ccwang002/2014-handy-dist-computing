@@ -2,7 +2,7 @@ from concurrent.futures import ProcessPoolExecutor
 from validate_prime import is_prime, PRIMES
 
 def use_process():
-    with ProcessPoolExecutor(max_workers=4) as executor:
+    with ProcessPoolExecutor() as executor:
         ans = executor.map(is_prime, PRIMES)
         return ans
 

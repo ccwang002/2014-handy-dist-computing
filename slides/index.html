@@ -392,8 +392,61 @@ pip3 install ipython[all]</code>
             or search <a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank">Unofficial Windows Binaries for Python</a></p>
     </div></section>
 
+    <section id="ipy-overview" class="slide"><div>
+        <h2 class="tighter">Overview</h2>
+        <img src="pics/IPyParallel_Overview.png" width="90%" alt="">
+        <pre class="language-ipython3 small">
+<code>In[1]: from IPython.parallel import Client
+       rc = Client() # connect controller
+In[2]: dview = rc[:] # return a View</code></pre>
+    </div><style>
+        #ipy-overview pre {
+            position: absolute;
+            top: 115px;
+            right: 175px;
+            border: 2px solid black;
+            padding: 0 5px;
+        }
+    </style></section>
 
-    <section id="e" class="slide"><div>
+    <section id="ipy-start-cluster" class="slide"><div>
+        <h2 class="tighter">Start IPython Cluster</h2>
+        <pre class="language-bash tighter small">
+<code>$ ipcluster3 start
+# [IPClusterStart] Using existing profile dir: '.../profile_default'
+# [IPClusterStart] Starting ipcluster with [daemon=False]
+# ... (automatically set up controller and engines locally)</code></pre>
+<p class="tighter">Or use IPython Notebook to start</p>
+<img src="pics/ipynb_cluster.png" alt="">
+    </div></section>
+
+    <section id="ipy-demo" class="slide"><div>
+        <pre class="language-ipython3 full-page">
+<code>In [1]: from IPython.parallel import Client
+        rc = Client()
+In [2]: rc.ids
+Out[2]: [0, 1, 2, 3]
+In [3]: dview = rc[:]  # DirectView use all engines
+In [4]: with dview.sync_imports():
+   ...:     import math  # import on all engines
+In [5]: ar = dview.map_sync(is_prime, PRIMES[:8]) # block
+In [6]: ar.get()
+Out[6]: [True, True, True, True, True, False, True, True]
+</code></pre>
+    </div></section>
+
+    <section id="ipy-parallel-magic" class="slide"><div>
+        <pre class="language-ipython3 tighter">
+<code>In [1]: %%px  # run on all engines by ipython magic
+   ...: import numpy as np
+   ...: rand_n = np.random.randint(10, 2)
+In [2]: dview['talk'] = 'MLDM Monday'   # spread variables
+In [3]: dview.scatter('a', list(range(8)))
+   ...: dview['a']   # and collect them back
+Out[3]: [[0, 1], [2, 3], [4, 5], [6, 7]]
+In [4]: dview.gather('a')
+Out[4]: [0, 1, 2, 3, 4, 5, 6, 7]
+</code></pre>
     </div></section>
 
     <!-- End Slide -->

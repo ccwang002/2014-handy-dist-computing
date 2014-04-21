@@ -205,6 +205,7 @@
         <h2>Few notes before my talk</h2>
         <ul>
             <li>If not mentioned, tasks to be distributed(parallelized) are CPU-heavy</li>
+            <li>All examples run under Python 3.4</li>
             <li>Everyone switches to Python 3.x after this talk (hopefully)</li>
         </ul>
     </div></section>
@@ -346,7 +347,6 @@ Multiprocess: 7.98</code>
         </ul>
     </div></section>
 
-
 	<section id="ipy-cover" class="slide cover w" ><div>
         <h2>Introducing <br />IPython Parallel</h2>
 		<img src="pics/mid.jpg" alt="">
@@ -366,9 +366,35 @@ Multiprocess: 7.98</code>
     </style>
     </section>
 
-    <section id="e" class="slide"><div>
+    <section id="ipy-feature" class="slide"><div>
+        <h2>Features of IPython Parallel</h2>
+        <ul>
+            <li>Get all the goodness of IPython <span class="next">(never heard of it?)</span><br />
+                <span class="next"><b>TRY IT NOW!</b> It will change your life</span></li>
+            <li>Both interactive and parallel.
+                Highly useful in data analysis</li>
+            <li>Scale across multiple machines</li>
+            <li>Support MPI, PBS, and SGE common schemes</li>
+        </ul>
+        <p class="next">Simply, <i>awesome</i></p>
     </div></section>
 
+    <section id="ipy-setup" class="slide"><div>
+        <h2 class="tighter">Setup</h2>
+        <p class="tighter">Trivial if you setup your Python correctly</p>
+        <pre class="language-bash tighter">
+<code>python3 -m ensurepip
+# or apt-get install python3-pip
+# or python3 ez_setup.py from setuptools
+pip3 install ipython[all]</code>
+        </pre>
+        <p>Windows? <span class="next">(... get a *unix)</span><br />
+            or search <a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank">Unofficial Windows Binaries for Python</a></p>
+    </div></section>
+
+
+    <section id="e" class="slide"><div>
+    </div></section>
 
     <!-- End Slide -->
     <section id='end' class='slide cover shout w'><div>

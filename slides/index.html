@@ -449,6 +449,131 @@ Out[4]: [0, 1, 2, 3, 4, 5, 6, 7]
 </code></pre>
     </div></section>
 
+    <section id="ipy-nb" class="slide"><div>
+        <h2>More in demo code</h2>
+        <p>Or this <a href="http://nbviewer.ipython.org/github/ccwang002/2014-handy-dist-computing/blob/master/demo_code/ipy-parallel/Hello_IPyParallel.ipynb">online IPython notebook</a> (hosted by Notebook Viewer)</p>
+        <p class="tighter">You can use ipython notebook and actually <i>run</i> it.</p>
+        <pre class="language-bash tighter"><code>ipython3 notebook
+# Luanch IPython notebook server
+# on http://localhost:8888/
+# ... (terminated by Ctrl-C/Ctrl-Z)</code></pre>
+    </div></section>
+
+    <section id="ipy-summary" class="slide"><div>
+        <h2>Summary</h2>
+        <ul>
+            <li>Awesome.</li>
+            <li>Provides more scalability (cross machine) and flexbility (interactive) through network connections</li>
+            <li>By adding an extra overhead for network messaging, object transfer</li>
+            <li>Passing object may bring up issues like pickling, but IPython handles most of them correctly.</li>
+        </ul>
+        <p class="note tighter next">What if we want to add workers <i>dynamically</i> during heavy load?</p>
+    </div><style>
+        #ipy-summary ul {
+            margin-bottom: 25px;
+        }
+    </style></section>
+
+	<section id="celery-cover" class="slide cover w" ><div>
+        <h2>Introducing <br />Celery</h2>
+		<img src="pics/mid.jpg" alt="">
+    </div>
+    <style>
+        #celery-cover h2 {
+            margin: 0px 0 0px;
+            color: #D91A3C;
+            text-align: left;
+            font-size: 100px;
+            line-height: 1.2em;
+            opacity: 0.8;
+            position: absolute;
+            top: 80px;
+            left: 60px;
+        }
+    </style>
+    </section>
+
+   <section id="celery-orz" class="slide"><div>
+        <h2>Sorry ...</h2>
+        <ul>
+            <li>No example here. Only concept</li>
+            <li>I haven't test the functionality "dynamic number of workers"<br />
+                But I sure it works : )</li>
+            <li>Hope I can make it at PyCon APAC</li>
+        </ul>
+        <img src="pics/orz.png" alt="">
+    </div><style>
+        #celery-orz img {
+            position: absolute;
+            bottom: 80px;
+            right: 120px;
+            width: 300px;
+        }
+    </style></section>
+
+    <section id="celery-overview" class="slide"><div>
+        <h2 class="tighter">Overview</h2>
+        <img src="pics/Celery-RabbitMQ.png" alt="">
+        <p class="ref tighter">From Abhishek Tiwari,<br /><a href="http://abhishek-tiwari.com/post/amqp-rabbitmq-and-celery-a-visual-guide-for-dummies" target="_blank"><i>AMQP, RabbitMQ and Celery - A Visual Guide For Dummies</i></a></p>
+    </div><style>
+        #celery-overview p.ref {
+            position: absolute;
+            font-size: 18px;
+            text-align: right;
+            width: 450px;
+            bottom: 0px;
+            right: 120px;
+        }
+    </style></section>
+
+
+    <section id="final-summary" class="slide"><div>
+        <h2>Summary</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Builtin</th>
+                    <th>IPy Parallel</th>
+                    <th>Celery</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>High Level APIs</th>
+                    <td>✔ </td>
+                    <td>✔ </td>
+                    <td>✔ </td>
+                </tr>
+                <tr>
+                    <th>Spreading Data</th>
+                    <td>△ </td>
+                    <td>✔ </td>
+                    <td>△ </td>
+                </tr>
+                <tr>
+                    <th>Interactive mode</th>
+                    <td>✕ </td>
+                    <td>✔ </td>
+                    <td>✔ </td>
+                </tr>
+                <tr>
+                    <th>Scale across machines</th>
+                    <td>✕ </td>
+                    <td>✔ (limited)</td>
+                    <td>✔ </td>
+                </tr>
+                <tr>
+                    <th>Hot add/drop workers</th>
+                    <td>✕ </td>
+                    <td>✕ </td>
+                    <td>✔ </td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="note">They can work as partners : )</p>
+    </div></section>
+
     <!-- End Slide -->
     <section id='end' class='slide cover shout w'><div>
         <h2>Thank You!</h2>

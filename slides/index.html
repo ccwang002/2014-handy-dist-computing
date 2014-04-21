@@ -202,15 +202,33 @@
     </div></section>
 
     <section id="note-before-talk" class="slide"><div>
-        <h2>Few notes before my talk</h2>
+        <h2>Before my talk</h2>
         <ul>
             <li>If not mentioned, tasks to be distributed(parallelized) are CPU-heavy</li>
             <li>All examples run under Python 3.4</li>
-            <li>Everyone switches to Python 3.x after this talk (hopefully)</li>
+            <li>Hope Everyone to switche to Python 3.x after this talk</li>
         </ul>
     </div></section>
+
+    <section id="story" class="slide"><div>
+        <h2>Deadline at 4 am</h2>
+        <p class="inline tighter" align="center"><img src="pics/taiwan_proud.jpg" alt=""></p>
+    </div></section>
+
+    <section id="story-contd" class="slide"><div>
+        <h2>Aweful feelings ...</h2>
+        <img src="pics/sad_load.png" width="100%" alt="">
+        <p>Engineers' time is  more <i>valuable</i> than computing, but many algorithms is hard to make it parallel.</p>
+    </div></section>
+
+    <section id="story-epic" class="slide"><div>
+        <h2>EPIC That's what I want</h2>
+        <img src="pics/EPIC_load_ipy.jpg" width="100%" alt="">
+        <p class="next">Not hard if your tasks are independent. Here we focus on the easiest pattern.</p>
+    </div></section>
+
     <section id="val-prime" class="slide"><div>
-        <h2 class="tighter">Example: Validate Prime Numbers</h2>
+        <h2 class="tighter">To Validate prime numbers</h2>
         <pre class="language-python3">
 <code>PRIMES = [int(l) for l in open('prime_list.txt')]
 def is_prime(n):
@@ -235,6 +253,25 @@ from timeit import timeit
 timeit('orig_way()', 'from __main__ import orig_way',
        number=3)  # return total time of all runs</code></pre>
     </div></section>
+
+	<section id="builtin-cover" class="slide cover w" ><div>
+        <h2>Using Python<br />Standard Library</h2>
+		<img src="pics/mid.jpg" alt="">
+    </div>
+    <style>
+        #builtin-cover h2 {
+            margin: 0px 0 0px;
+            color: #D91A3C;
+            text-align: left;
+            font-size: 100px;
+            line-height: 1.2em;
+            opacity: 0.8;
+            position: absolute;
+            top: 50px;
+            left: 60px;
+        }
+    </style>
+    </section>
 
     <section id="thread-process-in-python" class="slide"><div>
         <h2 class="tighter">Threads and Process in Python</h2>
@@ -526,7 +563,6 @@ Out[4]: [0, 1, 2, 3, 4, 5, 6, 7]
         }
     </style></section>
 
-
     <section id="final-summary" class="slide"><div>
         <h2>Summary</h2>
         <table>
@@ -566,12 +602,54 @@ Out[4]: [0, 1, 2, 3, 4, 5, 6, 7]
                 <tr>
                     <th>Hot add/drop workers</th>
                     <td>✕ </td>
-                    <td>✕ </td>
+                    <td>△ </td>
                     <td>✔ </td>
                 </tr>
             </tbody>
         </table>
         <p class="note">They can work as partners : )</p>
+    </div></section>
+
+    <section id="final-naive" class="slide"><div>
+        <h2 class="tighter">How is our naive parallelism?</h2>
+        <ul>
+            <li>Easy to use; clean APIs</li>
+            <li>Can come up the parallel strategy by try-n-error</li>
+            <li>Should boost the computation by some factor</li>
+            <li>Heavy jobs (that run fews day) would have more significant performance improvement</li>
+        </ul>
+        <p class="next inline">But that comes with price</p>
+        <ul class="next">
+            <li>Copy objects a lot <span class="next">→ use database</span></li>
+            <li>Memory usage <span class="next">→ buy memory XD</span></li>
+            <li>Unaccepted overhead sometimes <span class="next">→ avoid this pattern</span></li>
+        </ul>
+    </div><style>
+        #final-naive ul {
+            margin-bottom: 25px;
+        }
+    </style></section>
+
+    <section id="takehome-msg" class="slide"><div>
+        <h2>Take-home message</h2>
+        <ul>
+            <li>Put these tools under your pillow
+                <ul>
+                    <li>multiprocessing, concurrent</li>
+                    <li>IPython Parallel</li>
+                    <li>Celery</li>
+                    <li>Python 3.4 and asyncio (if tasks are IO bound)</li>
+                </ul>
+            </li>
+            <li>Parallelism is hard <span class="next">but keep calm, there are simple situations</span></li>
+            <li class="next">Join PyCon APAC!</li>
+        </ul>
+    </div></section>
+
+    <section id="pyconapac-pr" class="slide"><div>
+        <h2>Registration NOW open!</h2>
+        <img src="pics/2014_pyconlogo.png" width="100%" alt="">
+        <p align="center"><a href="https://tw.pycon.org/2014apac/en/">PyCon APAC 2014/TW site</a></p>
     </div></section>
 
     <!-- End Slide -->
@@ -592,7 +670,6 @@ Out[4]: [0, 1, 2, 3, 4, 5, 6, 7]
     </style></section>
 
     <!-- END OF SLIDE CONTENT -->
-
     <p class="badge"><a href="https://github.com/ccwang002/2014-handy-dist-computing" target="_blank">Fork me on Github</a></p>
     <div class="progress"><div></div></div>
 

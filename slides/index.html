@@ -298,7 +298,7 @@ do sth else, waiting
     </div></section>
 
     <section id="concurrent-multithread" class="slide"><div>
-        <p class="tighter">Concurrent.future also supports thread pooling</p>
+        <h2>concurrent.future for thread pooling</h2>
         <pre class="language-bash tighter">
 <code># replace ProcessPoolExecutor with ThreadPoolExecutor
 def use_thread():
@@ -322,7 +322,7 @@ def use_thread():
     </div></section>
 
     <section id="builtin-benchmark" class="slide"><div>
-        <h2>Benchmark on a 12 core machince</h2>
+        <h2>Benchmark on a 12 core machine</h2>
         <pre class="language-bash tighter">
 <code>> python3 benchmark.py
 # Minimum time average of 3 in 3 repeats
@@ -333,6 +333,18 @@ Multiprocess: 7.98</code>
         <p>You don't get a 12x speed up because of forking process overhead</p>
     </div></section>
 
+    <section id="builtin-summary" class="slide"><div>
+        <h2>Summary for built-in modules</h2>
+        <ul>
+            <li>Easy to write</li>
+            <li>High level APIs available</li>
+            <li><b>Fail in interactive mode</b><br />
+                Bad because that's the way we do data mangling</li>
+            <li><b>Limited Scalability</b><br />
+                Simply don't scale, and it is hard to find a 100 core server</li>
+            <li>Use multithread for IO bound; multiprocess for CPU bound tasks</li>
+        </ul>
+    </div></section>
 
     <section id="e" class="slide"><div>
     </div></section>

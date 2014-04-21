@@ -237,7 +237,7 @@ timeit('orig_way()', 'from __main__ import orig_way',
 
     <section id="thread-process-in-python" class="slide"><div>
         <h2 class="tighter">Threads and Process in Python</h2>
-        <p class="tighter">Multithread, <code>threading</code>, does not work as expected because of GIL.</p> 
+        <p class="tighter">Multithread, <code>threading</code>, does not work as expected because of GIL.</p>
         <p class="tighter" align="right">
             <img src="pics/David%20Beazley_gil_explain.png" width="100%" alt="">
             (From David Beazley's <a href="http://www.dabeaz.com/python/UnderstandingGIL.pdf" target="_blank"><i>Understanding GIL</i></a>)
@@ -294,11 +294,11 @@ do sth else, waiting
 do sth else, waiting
 do sth else, waiting
 [True, True, True, True, True, False]</code></pre>
-        <p class="next">(Beyonds today's topic) <br/>More on the asyncio module in Py 3.4, which makes you <i>escape the callback hell</i> through coroutine(generator) pattern <span class="next">... like magic.</span></p>
+        <p class="next note">(Beyonds today's topic) <br/>More on the asyncio module in Py 3.4, which makes you <i>escape the callback hell</i> through coroutine(generator) pattern <span class="next">... like magic.</span></p>
     </div></section>
 
     <section id="concurrent-multithread" class="slide"><div>
-        <p class="tighter">Concurrent.future also supports thread pooling</p>
+        <h2>concurrent.future for thread pooling</h2>
         <pre class="language-bash tighter">
 <code># replace ProcessPoolExecutor with ThreadPoolExecutor
 def use_thread():
@@ -306,22 +306,23 @@ def use_thread():
         ans = executor.map(is_prime, PRIMES)
         return ans</code>
         </pre>
+        <p class="tighter note">You <i>don't</i> gain computation boost by this.</p>
     </div></section>
 
     <section id="builtin-democode" class="slide"><div>
-        <h2>Demo codes</h2>    
-        <p class="tighter">So far, many ways to validate prime using standard library:</p>
+        <h2>Demo codes</h2>
+        <p class="tighter">Ways to speed up using standard library so far:</p>
         <ul>
-            <li>Straightforward: validate_prime.py</li>
-            <li>Multiprocess: demo_multiprocess.py</li>
-            <li>Multithread: demo_multithread.py</li>
-            <li>Async multiprocess: demo_async.py</li>
+            <li><a href="https://github.com/ccwang002/2014-handy-dist-computing/blob/master/demo_code/builtin-cpuheavy/validate_prime.py">Straightforward and algorithm is_prime()</a></li>
+            <li><a href="https://github.com/ccwang002/2014-handy-dist-computing/blob/master/demo_code/builtin-cpuheavy/demo_multiprocess.py">Multiprocess</a></li>
+            <li><a href="https://github.com/ccwang002/2014-handy-dist-computing/blob/master/demo_code/builtin-cpuheavy/demo_multithread.py">Multithread</a></li>
+            <li><a href="https://github.com/ccwang002/2014-handy-dist-computing/blob/master/demo_code/builtin-cpuheavy/demo_async.py">Async multiprocess</a></li>
         </ul>
-        <p class="tighter">All demo codes under <code>/demo_code/builtin-cpuheavy</code></p>
+        <p class="tighter">Demo codes are under <code>/demo_code/builtin-cpuheavy</code></p>
     </div></section>
 
     <section id="builtin-benchmark" class="slide"><div>
-        <h2>Benchmark on a 12 core machince</h2>    
+        <h2>Benchmark on a 12 core machine</h2>
         <pre class="language-bash tighter">
 <code>> python3 benchmark.py
 # Minimum time average of 3 in 3 repeats
@@ -332,6 +333,38 @@ Multiprocess: 7.98</code>
         <p>You don't get a 12x speed up because of forking process overhead</p>
     </div></section>
 
+    <section id="builtin-summary" class="slide"><div>
+        <h2>Summary for built-in modules</h2>
+        <ul>
+            <li>Easy to write</li>
+            <li>High level APIs available</li>
+            <li><b>Fail in interactive mode</b><br />
+                Bad because that's the way we do data mangling</li>
+            <li><b>Limited Scalability</b><br />
+                Simply don't scale, and it is hard to find a 100 core server</li>
+            <li>Use multithread for IO bound; multiprocess for CPU bound tasks</li>
+        </ul>
+    </div></section>
+
+
+	<section id="ipy-cover" class="slide cover w" ><div>
+        <h2>Introducing <br />IPython Parallel</h2>
+		<img src="pics/mid.jpg" alt="">
+    </div>
+    <style>
+        #ipy-cover h2 {
+            margin: 0px 0 0px;
+            color: #D91A3C;
+            text-align: left;
+            font-size: 100px;
+            line-height: 1.2em;
+            opacity: 0.8;
+            position: absolute;
+            top: 50px;
+            left: 60px;
+        }
+    </style>
+    </section>
 
     <section id="e" class="slide"><div>
     </div></section>
@@ -350,7 +383,7 @@ Multiprocess: 7.98</code>
             left: 50px;
             color: #0376A6;
             font-size: 92px;
-            opacity: 0.8;
+            opacity: 0.9;
         }
     </style></section>
 
@@ -374,12 +407,12 @@ Multiprocess: 7.98</code>
     -->
     <!-- Google Analytics -->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-42219381-5', 'ccwang002.github.io');
-        ga('send', 'pageview');
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-42219381-5', 'ccwang002.github.io');
+      ga('send', 'pageview');
     </script>
 </body>
 </html>
